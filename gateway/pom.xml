@@ -13,6 +13,7 @@
     <dependencies>
         <dependency><groupId>com.oms</groupId><artifactId>common</artifactId></dependency>
         <dependency><groupId>com.oms</groupId><artifactId>protocol</artifactId></dependency>
+        <dependency><groupId>com.oms</groupId><artifactId>engine</artifactId></dependency>
         <dependency><groupId>io.aeron</groupId><artifactId>aeron-client</artifactId></dependency>
         <dependency><groupId>io.aeron</groupId><artifactId>aeron-driver</artifactId></dependency>
         <dependency><groupId>org.agrona</groupId><artifactId>agrona</artifactId></dependency>

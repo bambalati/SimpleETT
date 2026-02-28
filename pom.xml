@@ -12,8 +12,8 @@
     <modules>
         <module>common</module>
         <module>protocol</module>
-        <module>gateway</module>
         <module>engine</module>
+        <module>gateway</module>
         <module>tools</module>
         <module>ui-bridge</module>
     </modules>
@@ -50,6 +50,7 @@
             <dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId><version>${junit.version}</version><scope>test</scope></dependency>
             <dependency><groupId>com.oms</groupId><artifactId>common</artifactId><version>${project.version}</version></dependency>
             <dependency><groupId>com.oms</groupId><artifactId>protocol</artifactId><version>${project.version}</version></dependency>
+            <dependency><groupId>com.oms</groupId><artifactId>engine</artifactId><version>${project.version}</version></dependency>
         </dependencies>
     </dependencyManagement>
 

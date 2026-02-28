@@ -103,7 +103,6 @@ public final class GatewayHandler extends ChannelInboundHandlerAdapter {
         log.info("Client logged on: sessionId={} clientId={} assigned sessionId={}", sessionId, clientId, session.sessionId);
 
         // Send logon ack
-        scratch.clear();
         int len = Messages.encodeLogonAck(scratch, 0, session.sessionId);
         ByteBuf resp = ctx.alloc().buffer(len);
         for (int i = 0; i < len; i++) resp.writeByte(scratch.getByte(i));
@@ -143,7 +142,7 @@ public final class GatewayHandler extends ChannelInboundHandlerAdapter {
         long internalId = orderIdGen.getAndIncrement();
         long now = System.nanoTime();
 
-        boolean published = publisher.publishNewOrder(internalId, session.sessionId, clientId,
+        boolean published = publisher.publishNewOrder(internalId, session.sessionId, session.clientId,
                 clientSeqNo, instrId, side, tif, price, qty, now);
 
         if (!published) {
@@ -189,7 +188,6 @@ public final class GatewayHandler extends ChannelInboundHandlerAdapter {
     }
 
     private void sendReject(ChannelHandlerContext ctx, int sessionId, long clientSeqNo, RejectReason reason) {
-        scratch.clear();
         int len = Messages.encodeReject(scratch, 0, sessionId, clientSeqNo, reason);
         ByteBuf buf = ctx.alloc().buffer(len);
         for (int i = 0; i < len; i++) buf.writeByte(scratch.getByte(i));
