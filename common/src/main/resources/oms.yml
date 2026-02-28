@@ -1,0 +1,14 @@
+# OMS default configuration (localhost dev - both gateway + engine on same host)
+aeronDir: /dev/shm/aeron-oms
+aeronChannel: aeron:udp?endpoint=localhost:20121
+partitions: 32
+inboundStreamBase: 1000
+outboundStreamBase: 2000
+
+gatewayPort: 7001
+gatewayBackpressureQueueLimit: 4096
+
+runGateway: true
+runEngine: true
+
+metricsIntervalSecs: 5
