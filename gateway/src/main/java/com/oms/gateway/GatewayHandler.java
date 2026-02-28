@@ -157,19 +157,12 @@ public final class GatewayHandler extends ChannelInboundHandlerAdapter {
             return;
         }
 
-        int  sessId         = payload.readIntLE();
-        long clientSeqNo    = payload.readLongLE();
+        payload.skipBytes(4); // sessId echo
+        long clientSeqNo     = payload.readLongLE();
         long internalOrderId = payload.readLongLE();
+        int  instrumentId    = payload.readIntLE();
 
-        // Need instrumentId to determine partition — client should send it.
-        // For cancel we assume the client sends instrumentId as well.
-        // (In a real system the gateway maintains an order->instrument map.)
-        // For this skeleton: embed instrumentId in cancel msg. We skip for brevity
-        // and use a broadcast cancel (engine handles order-not-found).
-        // TODO: maintain internalOrderId->instrumentId map in gateway.
-
-        // For now publish to partition 0 as placeholder
-        publisher.publishCancel(session.sessionId, clientSeqNo, internalOrderId, 0);
+        publisher.publishCancel(session.sessionId, clientSeqNo, internalOrderId, instrumentId);
     }
 
     @Override

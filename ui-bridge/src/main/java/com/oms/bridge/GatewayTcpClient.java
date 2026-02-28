@@ -111,10 +111,9 @@ public final class GatewayTcpClient {
 
     public void sendCancel(long clientSeqNo, long internalOrderId, int instrumentId) {
         if (!session.isReady()) return;
-        // Cancel payload: sessionId(4) clientSeqNo(8) internalOrderId(8)
         scratch.putShort(0, (short)(1 + Messages.CANCEL_PAYLOAD_SIZE), ByteOrder.LITTLE_ENDIAN);
         scratch.putByte(2, MsgType.CANCEL_REQUEST.code);
-        Messages.encodeInternalCancel(scratch, 3, session.gatewaySessionId, clientSeqNo, internalOrderId);
+        Messages.encodeInternalCancel(scratch, 3, session.gatewaySessionId, clientSeqNo, internalOrderId, instrumentId);
         write(Messages.FRAME_HEADER_SIZE + Messages.CANCEL_PAYLOAD_SIZE);
     }
 

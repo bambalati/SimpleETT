@@ -55,10 +55,11 @@ public final class Messages {
     public static final int INOS_PAYLOAD_SIZE         = 62;
 
     // ---- CancelRequest payload ----
-    public static final int CANCEL_SESSION_ID_OFFSET    = 0;
-    public static final int CANCEL_CLIENT_SEQNO_OFFSET  = 4;
-    public static final int CANCEL_INTERNAL_ID_OFFSET   = 12;
-    public static final int CANCEL_PAYLOAD_SIZE         = 20;
+    public static final int CANCEL_SESSION_ID_OFFSET     = 0;
+    public static final int CANCEL_CLIENT_SEQNO_OFFSET   = 4;
+    public static final int CANCEL_INTERNAL_ID_OFFSET    = 12;
+    public static final int CANCEL_INSTRUMENT_ID_OFFSET  = 20;
+    public static final int CANCEL_PAYLOAD_SIZE          = 24;
 
     // ---- Ack payload (outbound) ----
     public static final int ACK_INTERNAL_ID_OFFSET    = 0;
@@ -206,10 +207,12 @@ public final class Messages {
     // ---- Internal Aeron CancelRequest ----
 
     public static int encodeInternalCancel(MutableDirectBuffer buf, int offset,
-                                            int sessionId, long clientSeqNo, long internalOrderId) {
+                                            int sessionId, long clientSeqNo,
+                                            long internalOrderId, int instrumentId) {
         buf.putInt(offset + CANCEL_SESSION_ID_OFFSET, sessionId, LE);
         buf.putLong(offset + CANCEL_CLIENT_SEQNO_OFFSET, clientSeqNo, LE);
         buf.putLong(offset + CANCEL_INTERNAL_ID_OFFSET, internalOrderId, LE);
+        buf.putInt(offset + CANCEL_INSTRUMENT_ID_OFFSET, instrumentId, LE);
         return CANCEL_PAYLOAD_SIZE;
     }
 

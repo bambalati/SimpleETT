@@ -55,7 +55,7 @@ public final class AeronPublisher {
         Publication pub = getOrCreatePub(partition);
 
         scratchBuf.putByte(0, MsgType.CANCEL_REQUEST.code);
-        Messages.encodeInternalCancel(scratchBuf, 1, sessionId, clientSeqNo, internalOrderId);
+        Messages.encodeInternalCancel(scratchBuf, 1, sessionId, clientSeqNo, internalOrderId, instrumentId);
 
         return offer(pub, 1 + Messages.CANCEL_PAYLOAD_SIZE);
     }
