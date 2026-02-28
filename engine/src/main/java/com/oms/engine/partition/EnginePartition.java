@@ -84,7 +84,7 @@ public final class EnginePartition implements Runnable, FragmentHandler {
         while (running.get()) {
             int fragments = inboundSub.poll(this, 256);
             if (fragments == 0) {
-                Thread.onSpinWait();
+                Thread.yield();
             }
         }
     }

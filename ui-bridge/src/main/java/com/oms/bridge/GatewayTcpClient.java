@@ -61,11 +61,13 @@ public final class GatewayTcpClient {
                                 // length field value = 1 (type) + N (payload bytes)
                                 // initialBytesToStrip=2 → handler receives [type(1)][payload(N)]
                                 .addLast(new LengthFieldBasedFrameDecoder(
+                                        ByteOrder.LITTLE_ENDIAN,
                                         65535,  // maxFrameLength
                                         0,      // lengthFieldOffset
                                         2,      // lengthFieldLength
                                         0,      // lengthAdjustment
-                                        2))     // initialBytesToStrip (remove length header)
+                                        2,      // initialBytesToStrip (remove length header)
+                                        false)) // failFast
                                 .addLast(new GatewayResponseHandler(session));
                     }
                 });

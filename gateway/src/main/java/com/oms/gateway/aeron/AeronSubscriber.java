@@ -68,7 +68,7 @@ public final class AeronSubscriber implements Runnable {
             for (Subscription sub : subs) {
                 fragments += sub.poll(handler, 64);
             }
-            if (fragments == 0) Thread.onSpinWait();
+            if (fragments == 0) Thread.yield();
         }
 
         for (Subscription s : subs) s.close();

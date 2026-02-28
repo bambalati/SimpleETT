@@ -9,6 +9,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import java.nio.ByteOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,6 +64,7 @@ public final class GatewayServer {
                                 // We want to pass full frames (incl header) to GatewayHandler,
                                 // so initialBytesToStrip=0.
                                 .addLast(new LengthFieldBasedFrameDecoder(
+                                        ByteOrder.LITTLE_ENDIAN,
                                         /* maxFrameLen */ 65535,
                                         /* lengthOffset */ 0,
                                         /* lengthFieldLen */ 2,
